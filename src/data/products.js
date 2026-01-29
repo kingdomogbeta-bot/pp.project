@@ -1,0 +1,256 @@
+const products = [
+  {
+    id: 'p1',
+    title: 'Premium Wireless Headphones Pro',
+    brand: 'SoundCo',
+    price: 12500,
+    originalPrice: 18500,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',
+    description: 'Premium wireless headphones with active noise cancellation, 40-hour battery life, and premium sound quality. Perfect for music lovers and professionals.',
+    rating: 4.8,
+    reviews: 512,
+    stock: 45,
+    colors: ['Black', 'Silver', 'Gold', 'Rose Gold'],
+    specs: {
+      'Battery Life': '40 hours',
+      'Noise Cancellation': 'Active (ANC)',
+      'Bluetooth': '5.3',
+      'Weight': '250g',
+      'Warranty': '2 years'
+    }
+  },
+  {
+    id: 'p2',
+    title: 'Ultra Comfort Running Sneakers',
+    brand: 'Fleet',
+    price: 8500,
+    originalPrice: 12500,
+    category: 'Footwear',
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop',
+    description: 'Lightweight running shoes with responsive cushioning technology and superior comfort. Engineered for maximum performance during workouts.',
+    rating: 4.7,
+    reviews: 856,
+    stock: 62,
+    colors: ['Black', 'White', 'Red', 'Blue', 'Gray'],
+    specs: {
+      'Material': 'Mesh & Synthetic',
+      'Cushioning': 'Responsive EVA',
+      'Weight': '280g',
+      'Sizes': 'US 5-14',
+      'Care': 'Machine Washable'
+    }
+  },
+  {
+    id: 'p3',
+    title: 'Durable Travel Backpack XL',
+    brand: 'CarryAll',
+    price: 6500,
+    originalPrice: 9500,
+    category: 'Bags',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800&auto=format&fit=crop',
+    description: 'Spacious and durable backpack perfect for travel, school, or daily commute. Features multiple compartments and water-resistant material.',
+    rating: 4.6,
+    reviews: 423,
+    stock: 78,
+    colors: ['Black', 'Navy', 'Gray', 'Olive'],
+    specs: {
+      'Capacity': '40L',
+      'Material': 'Water-resistant Nylon',
+      'Compartments': '7',
+      'Weight': '600g',
+      'Warranty': '1 year'
+    }
+  },
+  {
+    id: 'p4',
+    title: 'Advanced Fitness Smart Watch',
+    brand: 'TimeTech',
+    price: 18500,
+    originalPrice: 25000,
+    category: 'Wearables',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop',
+    description: 'Advanced fitness tracker with heart rate monitoring, sleep tracking, GPS, and 10-day battery life. Track your health 24/7.',
+    rating: 4.9,
+    reviews: 1203,
+    stock: 38,
+    colors: ['Black', 'Silver', 'Gold', 'Rose Gold', 'Midnight Blue'],
+    specs: {
+      'Display': '1.4" AMOLED',
+      'Battery': '10 days',
+      'Water Resistance': '5ATM',
+      'Sensors': '6',
+      'Connectivity': 'Bluetooth 5.3, WiFi'
+    }
+  },
+  {
+    id: 'p5',
+    title: 'Insulated Travel Coffee Mug',
+    brand: 'BrewMate',
+    price: 2800,
+    originalPrice: 4200,
+    category: 'Drinkware',
+    image: 'data:image/jpeg;base64,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',
+    description: 'Stainless steel insulated travel mug keeps drinks hot for hours and fits most cup holders. Leak-resistant lid and comfortable grip.',
+    rating: 4.6,
+    reviews: 214,
+    stock: 150,
+    colors: ['Black', 'Silver', 'Matte White'],
+    specs: {
+      'Capacity': '16 oz',
+      'Material': 'Double-wall Stainless Steel',
+      'Insulation': 'Keeps hot for 6+ hours',
+      'Dishwasher Safe': 'No (hand wash recommended)',
+      'Leak Proof': 'Yes'
+    }
+  },
+  {
+    id: 'p6',
+    title: 'Ergonomic Wireless Mouse Pro',
+    brand: 'Clicker',
+    price: 5200,
+    originalPrice: 7800,
+    category: 'Electronics',
+    image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=800&auto=format&fit=crop',
+    description: 'Ergonomic wireless mouse with precision tracking and 18-month battery life. Comfortable for long work sessions.',
+    rating: 4.4,
+    reviews: 589,
+    stock: 95,
+    colors: ['Black', 'White', 'Gray', 'Silver'],
+    specs: {
+      'DPI': '1000-4000',
+      'Battery': '18 months',
+      'Range': '10 meters',
+      'Buttons': '6',
+      'Weight': '100g'
+    }
+  },
+  {
+    id: 'p7',
+    title: 'Classic Denim Jacket Premium',
+    brand: 'BlueLine',
+    price: 9500,
+    originalPrice: 14000,
+    category: 'Clothing',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNh-kaXOwdRC9_pa6ZwhrgcX4_exARSJb0Zg&s',
+    description: 'Timeless denim jacket made from premium cotton. Perfect for any casual outfit. High-quality craftsmanship.',
+    rating: 4.7,
+    reviews: 678,
+    stock: 54,
+    colors: ['Dark Blue', 'Light Blue', 'Black', 'Indigo'],
+    specs: {
+      'Material': '100% Premium Cotton',
+      'Weight': '450g',
+      'Sizes': 'XS-XXL',
+      'Fit': 'Regular',
+      'Care': 'Machine Washable'
+    }
+  },
+  {
+    id: 'p8',
+    title: 'LED Desk Lamp with USB Charging',
+    brand: 'Bright',
+    price: 7200,
+    originalPrice: 10800,
+    category: 'Home',
+    image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTFhIJ20FmzspkXSruVcyWiJR48amK_TM66F47g_bbddH_ckTLvg0hCWaT7GgRQGtE7-EQwp5TldBY-P86U0cRXP18d37NyOVctnLvOIg&usqp=CAc',
+    description: 'LED desk lamp with adjustable brightness, USB charging port, and sleek modern design. Perfect for studying and working.',
+    rating: 4.6,
+    reviews: 445,
+    stock: 42,
+    colors: ['Black', 'White', 'Silver', 'Rose Gold'],
+    specs: {
+      'Brightness': '6 levels',
+      'Color Temperature': '3000-6500K',
+      'USB Output': '5V/2A',
+      'Power': 'USB powered',
+      'Warranty': '2 years'
+    }
+  },
+  {
+    id: 'p9',
+    title: 'Wireless Charging Pad Ultra',
+    brand: 'PowerUp',
+    price: 4800,
+    originalPrice: 7200,
+    category: 'Electronics',
+    image: 'data:image/jpeg;base64,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',
+    description: 'Fast wireless charging pad compatible with all Qi-enabled devices. Sleek design with non-slip surface.',
+    rating: 4.5,
+    reviews: 892,
+    stock: 67,
+    colors: ['Black', 'White', 'Gray'],
+    specs: {
+      'Power': '15W Fast Charging',
+      'Compatibility': 'All Qi devices',
+      'Input': 'USB-C',
+      'Temperature': 'Auto-cooling',
+      'Safety': 'Over-charge protection'
+    }
+  },
+  {
+    id: 'p10',
+    title: 'Yoga Mat Premium Non-Slip',
+    brand: 'FitFlow',
+    price: 5800,
+    originalPrice: 8500,
+    category: 'Sports',
+    image: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?q=80&w=800&auto=format&fit=crop',
+    description: 'Premium yoga mat with excellent grip and cushioning. Perfect for yoga, pilates, and floor exercises.',
+    rating: 4.8,
+    reviews: 721,
+    stock: 83,
+    colors: ['Purple', 'Blue', 'Green', 'Black', 'Pink'],
+    specs: {
+      'Material': 'Natural Rubber',
+      'Thickness': '6mm',
+      'Size': '183cm x 61cm',
+      'Weight': '1.2kg',
+      'Non-slip': 'Both sides'
+    }
+  },
+  {
+    id: 'p11',
+    title: 'Stainless Steel Water Bottle',
+    brand: 'HydroKeep',
+    price: 3500,
+    originalPrice: 5200,
+    category: 'Home',
+    image: 'data:image/jpeg;base64,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',
+    description: 'Durable stainless steel water bottle that keeps drinks cold for 24 hours or hot for 12 hours.',
+    rating: 4.7,
+    reviews: 1156,
+    stock: 98,
+    colors: ['Midnight Black', 'Arctic White', 'Ocean Blue', 'Rose Gold'],
+    specs: {
+      'Capacity': '750ml',
+      'Material': 'Double-wall Stainless Steel',
+      'Insulation': 'Vacuum',
+      'Temperature Range': '-40°C to 100°C',
+      'Leak Proof': 'Yes'
+    }
+  },
+  {
+    id: 'p12',
+    title: 'Portable Bluetooth Speaker',
+    brand: 'SoundBeat',
+    price: 8200,
+    originalPrice: 11800,
+    category: 'Electronics',
+    image: 'data:image/jpeg;base64,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',
+    description: 'Waterproof portable Bluetooth speaker with 360° sound and 12-hour battery life. Perfect for outdoor adventures.',
+    rating: 4.6,
+    reviews: 734,
+    stock: 51,
+    colors: ['Black', 'Blue', 'Red', 'Green'],
+    specs: {
+      'Power': '20W',
+      'Battery': '12 hours',
+      'Waterproof': 'IPX7',
+      'Range': '10 meters',
+      'Charging': 'USB-C, 2 hours'
+    }
+  }
+]
+
+export default products

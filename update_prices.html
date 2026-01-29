@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Product Prices</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #333; }
+        .success { color: green; padding: 10px; background: #e8f5e9; border-radius: 4px; margin: 10px 0; }
+        .info { color: #1976d2; padding: 10px; background: #e3f2fd; border-radius: 4px; margin: 10px 0; }
+        button { background: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #1565c0; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ Update Product Prices</h1>
+        <p>Click the button below to update all product prices to the new realistic values:</p>
+        
+        <button onclick="updatePrices()">Update Prices Now</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function updatePrices() {
+            const newPrices = {
+                'p1': { price: 12500, originalPrice: 18500 },  // Headphones
+                'p2': { price: 8500, originalPrice: 12500 },   // Sneakers
+                'p3': { price: 6500, originalPrice: 9500 },    // Backpack
+                'p4': { price: 18500, originalPrice: 25000 },  // Smart Watch
+                'p5': { price: 2800, originalPrice: 4200 },    // Coffee Mug
+                'p6': { price: 5200, originalPrice: 7800 },    // Mouse
+                'p7': { price: 9500, originalPrice: 14000 },   // Denim Jacket
+                'p8': { price: 7200, originalPrice: 10800 },   // Desk Lamp
+                'p9': { price: 4800, originalPrice: 7200 },    // Charging Pad
+                'p10': { price: 5800, originalPrice: 8500 },   // Yoga Mat
+                'p11': { price: 3500, originalPrice: 5200 },   // Water Bottle
+                'p12': { price: 8200, originalPrice: 11800 }   // Bluetooth Speaker
+            };
+
+            try {
+                // Update merchant_products
+                const merchant = localStorage.getItem('merchant_products');
+                if (merchant) {
+                    let products = JSON.parse(merchant);
+                    products = products.map(p => {
+                        if (newPrices[p.id]) {
+                            return {
+                                ...p,
+                                price: newPrices[p.id].price,
+                                originalPrice: newPrices[p.id].originalPrice
+                            };
+                        }
+                        return p;
+                    });
+                    localStorage.setItem('merchant_products', JSON.stringify(products));
+                }
+
+                // Update adminProducts
+                const admin = localStorage.getItem('adminProducts');
+                if (admin) {
+                    let products = JSON.parse(admin);
+                    products = products.map(p => {
+                        if (newPrices[p.id]) {
+                            return {
+                                ...p,
+                                price: newPrices[p.id].price,
+                                originalPrice: newPrices[p.id].originalPrice
+                            };
+                        }
+                        return p;
+                    });
+                    localStorage.setItem('adminProducts', JSON.stringify(products));
+                }
+
+                document.getElementById('result').innerHTML = `
+                    <div class="success">
+                        ✅ Prices updated successfully!<br>
+                        <strong>Updated 12 products with new prices</strong>
+                    </div>
+                    <div class="info">
+                        💡 Now go back to your store and refresh the page (Ctrl+F5) to see the new prices
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 4px;">
+                        <strong>New Prices:</strong>
+                        <pre>
+p1 (Headphones): ₦12,500 (was ₦85,000)
+p2 (Sneakers): ₦8,500 (was ₦65,000)
+p3 (Backpack): ₦6,500 (was ₦48,000)
+p4 (Smart Watch): ₦18,500 (was ₦135,000)
+p5 (Coffee Mug): ₦2,800 (was ₦21,000)
+p6 (Mouse): ₦5,200 (was ₦39,000)
+p7 (Denim Jacket): ₦9,500 (was ₦72,000)
+p8 (Desk Lamp): ₦7,200 (was ₦54,000)
+p9 (Charging Pad): ₦4,800 (was ₦36,000)
+p10 (Yoga Mat): ₦5,800 (was ₦43,000)
+p11 (Water Bottle): ₦3,500 (was ₦25,000)
+p12 (Speaker): ₦8,200 (was ₦62,000)
+                        </pre>
+                    </div>
+                `;
+            } catch (e) {
+                document.getElementById('result').innerHTML = `
+                    <div style="color: red; padding: 10px; background: #ffebee; border-radius: 4px;">
+                        ❌ Error: ${e.message}
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
